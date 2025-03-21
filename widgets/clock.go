@@ -19,14 +19,14 @@ func NewClock() *Clock {
 func (c *Clock) Create() error {
 	box, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 0)
 	if err != nil {
-		return fmt.Errorf("Unable to create box: %w", err)
+		return fmt.Errorf("unable to create box: %w", err)
 	}
 
 	c.box = box
 
 	elem, err := gtk.LabelNew(time.Now().Format("15:04:05"))
 	if err != nil {
-		return fmt.Errorf("Unable to create label: %w", err)
+		return fmt.Errorf("unable to create label: %w", err)
 	}
 
 	box.PackStart(elem, true, true, 0)

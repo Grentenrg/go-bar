@@ -20,14 +20,14 @@ func NewDate() *Date {
 func (c *Date) Create() error {
 	box, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 0)
 	if err != nil {
-		return fmt.Errorf("Unable to create box: %w", err)
+		return fmt.Errorf("unable to create box: %w", err)
 	}
 
 	c.box = box
 
 	elem, err := gtk.LabelNew(time.Now().Format("Monday 02 January 2006"))
 	if err != nil {
-		return fmt.Errorf("Unable to create label: %w", err)
+		return fmt.Errorf("unable to create label: %w", err)
 	}
 
 	box.PackStart(elem, true, true, 0)

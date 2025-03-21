@@ -5,6 +5,7 @@ import (
 
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
+	"github.com/gotk3/gotk3/pango"
 	"github.com/grentenrg/go-bar/libs"
 )
 
@@ -22,17 +23,24 @@ func NewWindow() *Window {
 func (w *Window) Create() error {
 	box, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 0)
 	if err != nil {
-		return fmt.Errorf("Unable to create box: %w", err)
+		return fmt.Errorf("unable to create box: %w", err)
 	}
 
 	w.box = box
 
 	elem, err := gtk.LabelNew("Window")
 	if err != nil {
-		return fmt.Errorf("Unable to create label: %w", err)
+		return fmt.Errorf("unable to create label: %w", err)
 	}
 
-	box.PackStart(elem, true, true, 0)
+	// Set label properties for text overflow handling
+	elem.SetHExpand(false)
+	elem.SetHAlign(gtk.ALIGN_START)
+	elem.SetMaxWidthChars(30)
+	elem.SetLineWrap(false)
+	elem.SetEllipsize(pango.ELLIPSIZE_END)
+
+	box.PackStart(elem, false, false, 0)
 
 	w.label = elem
 

@@ -9,6 +9,7 @@ import (
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/grentenrg/go-bar/widgets"
+	"github.com/grentenrg/go-bar/widgets/system"
 
 	layershell "github.com/dlasky/gotk3-layershell/layershell"
 )
@@ -30,38 +31,116 @@ func main() {
 
 	var enabledWidgets []Widget
 
+	// Create three sections: left, center, and right
+	leftBox, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 5)
+	if err != nil {
+		log.Fatal("Unable to create left box:", err)
+	}
+	leftBox.SetHExpand(true)
+	leftBox.SetHAlign(gtk.ALIGN_START)
+
+	centerBox, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 0)
+	if err != nil {
+		log.Fatal("Unable to create center box:", err)
+	}
+	centerBox.SetHExpand(true)
+	centerBox.SetHAlign(gtk.ALIGN_CENTER)
+
+	rightBox, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 5)
+	if err != nil {
+		log.Fatal("Unable to create right box:", err)
+	}
+	rightBox.SetHExpand(true)
+	rightBox.SetHAlign(gtk.ALIGN_END)
+
+	// Create widgets
 	window := widgets.NewWindow()
 	if err := window.Create(); err != nil {
 		log.Fatal("Unable to create window:", err)
 	}
-
 	enabledWidgets = append(enabledWidgets, window)
+
+	workspaces := widgets.NewWorkspace()
+	if err := workspaces.Create(); err != nil {
+		log.Fatal("Unable to create workspaces:", err)
+	}
+	enabledWidgets = append(enabledWidgets, workspaces)
+
+	player := widgets.NewPlayer()
+	if err := player.Create(); err != nil {
+		log.Fatal("Unable to create player:", err)
+	}
+	enabledWidgets = append(enabledWidgets, player)
+
+	// System widgets
+	cpu := system.NewCPU()
+	if err := cpu.Create(); err != nil {
+		log.Fatal("Unable to create CPU widget:", err)
+	}
+	enabledWidgets = append(enabledWidgets, cpu)
+
+	memory := system.NewMemory()
+	if err := memory.Create(); err != nil {
+		log.Fatal("Unable to create memory widget:", err)
+	}
+	enabledWidgets = append(enabledWidgets, memory)
+
+	disk := system.NewDisk("/")
+	if err := disk.Create(); err != nil {
+		log.Fatal("Unable to create disk widget:", err)
+	}
+	enabledWidgets = append(enabledWidgets, disk)
+
+	network := system.NewNetwork("") // Empty string for automatic interface detection
+	if err := network.Create(); err != nil {
+		log.Fatal("Unable to create network widget:", err)
+	}
+	enabledWidgets = append(enabledWidgets, network)
+
+	volume := system.NewVolume("")
+	if err := volume.Create(); err != nil {
+		log.Fatal("Unable to create volume widget:", err)
+	}
+	enabledWidgets = append(enabledWidgets, volume)
+
+	notification := system.NewNotification()
+	if err := notification.Create(); err != nil {
+		log.Fatal("Unable to create notification widget:", err)
+	}
+	enabledWidgets = append(enabledWidgets, notification)
 
 	clock := widgets.NewClock()
 	if err := clock.Create(); err != nil {
 		log.Fatal("Unable to create clock:", err)
 	}
-
 	enabledWidgets = append(enabledWidgets, clock)
 
 	date := widgets.NewDate()
 	if err := date.Create(); err != nil {
 		log.Fatal("Unable to create date:", err)
 	}
-
 	enabledWidgets = append(enabledWidgets, date)
 
-	workspaces := widgets.NewWorkspace()
-	if err := workspaces.Create(); err != nil {
-		log.Fatal("Unable to create workspaces:", err)
-	}
+	// Pack widgets in their respective boxes
+	leftBox.PackStart(workspaces.Box(), false, false, 5)
+	leftBox.PackStart(window.Box(), false, false, 5)
 
-	enabledWidgets = append(enabledWidgets, workspaces)
+	centerBox.PackStart(player.Box(), false, false, 0)
 
-	bar.box.PackStart(workspaces.Box(), false, false, 5)
-	bar.box.PackStart(window.Box(), false, false, 5)
-	bar.box.PackEnd(clock.Box(), false, false, 5)
-	bar.box.PackEnd(date.Box(), false, false, 5)
+	// Pack system widgets in the right box
+	rightBox.PackStart(cpu.Box(), false, false, 5)
+	rightBox.PackStart(memory.Box(), false, false, 5)
+	rightBox.PackStart(disk.Box(), false, false, 5)
+	rightBox.PackStart(network.Box(), false, false, 5)
+	rightBox.PackStart(volume.Box(), false, false, 5)
+	rightBox.PackStart(notification.Box(), false, false, 5)
+	rightBox.PackEnd(clock.Box(), false, false, 5)
+	rightBox.PackEnd(date.Box(), false, false, 5)
+
+	// Add all sections to the main box
+	bar.box.PackStart(leftBox, true, true, 0)
+	bar.box.PackStart(centerBox, true, true, 0)
+	bar.box.PackStart(rightBox, true, true, 0)
 
 	for _, enableWidget := range enabledWidgets {
 		styleContext, err := enableWidget.Box().GetStyleContext()

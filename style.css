@@ -1,14 +1,17 @@
 * {
     font-size: 14px;
-    padding: 5px;
+    padding: 1px 5px;
     background: rgba(0, 0, 0, 0);
     font-weight: bold;
     font-family: 'Fira Code', monospace;
-
+    margin: 0px;
 }
 
 .bar {
-    /* background: rgba(0, 0, 0, 0.5); */
+    color: #ebdbb2;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    padding: 5px;
 }
 
 .large-text {
@@ -19,36 +22,93 @@
     font-size: 10px;
 }
 
+.clock, .date, .window, .workspace, .player, .cpu, .memory, .disk, .network, .volume, .notification, .workspaces {
+    background-color: #282828;  /* Darker widget background */
+    border: 1px solid #3c3836;  /* Darker border */
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .clock {
-    background-color: #f0f0f0;
-    border: 0px;
-    border-radius: 15px;
-    color: #333;
+    color: #d79921;  /* Orange */
 }
 
 .date {
-    background-color: #a39f00;
-    border: 0px;
-    border-radius: 15px;
-    color: #333;
+    color: #98971a;  /* Green */
 }
 
 .window {
-    background-color: #f09000;
-    border: 0px;
-    border-radius: 15px;
-    color: #333;
+    color: #d3869b;  /* Pink */
 }
 
 .workspace {
-    background-color: #00f0f0;
-    border: 0px;
-    border-radius: 15px;
-    color: #333;
-    padding: 5px;
+    color: #ebdbb2;
+    padding: 5px 10px;
 }
 
-.workspace .ws {
-    border: 1px solid #333;
-    padding: 5px;
+.workspace button {
+    border: 1px solid #3c3836;  /* Darker button border */
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.workspace button:hover {
+    background-color: #d79921;
+}
+
+.workspace-active {
+    background-color: #d79921;  /* Orange */
+    color: #d79921
+}
+
+.workspace-inactive {
+    background-color: #282828;  /* Darker workspace background */
+    color: #928374;  /* Muted gray */
+}
+
+.workspace-other-display {
+    background-color: #282828;  /* Darker workspace background */
+    color: #458588;  /* Blue */
+}
+
+.workspace-other-display:hover {
+    background-color: #d79921;
+    color: #282828;
+}
+
+.player {
+    color: #b16286;  /* Purple */
+}
+
+.player label {
+    color: #b16286;
+    font-weight: bold;
+}
+
+.cpu {
+    color: #cc241d;  /* Red */
+}
+
+.memory {
+    color: #98971a;  /* Green */
+}
+
+.disk {
+    color: #d79921;  /* Orange */
+}
+
+.network {
+    color: #458588;  /* Blue */
+}
+
+.volume {
+    color: #689d6a;  /* Light Green */
+}
+
+.notification {
+    color: #d65d0e;  /* Dark Orange */
+}
+
+.workspaces {
+    color: #b16286;  /* Purple */
 }

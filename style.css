@@ -1,0 +1,54 @@
+* {
+    font-size: 14px;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    font-family: 'Fira Code', monospace;
+
+}
+
+.bar {
+    /* background: rgba(0, 0, 0, 0.5); */
+}
+
+.large-text {
+    font-size: 30px;
+}
+
+.small-text {
+    font-size: 10px;
+}
+
+.clock {
+    background-color: #f0f0f0;
+    border: 0px;
+    border-radius: 15px;
+    color: #333;
+}
+
+.date {
+    background-color: #a39f00;
+    border: 0px;
+    border-radius: 15px;
+    color: #333;
+}
+
+.window {
+    background-color: #f09000;
+    border: 0px;
+    border-radius: 15px;
+    color: #333;
+}
+
+.workspace {
+    background-color: #00f0f0;
+    border: 0px;
+    border-radius: 15px;
+    color: #333;
+    padding: 5px;
+}
+
+.workspace .ws {
+    border: 1px solid #333;
+    padding: 5px;
+}
